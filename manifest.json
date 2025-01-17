@@ -1,0 +1,19 @@
+{
+  "name": "LinkedIn - Hiring page crawler",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "Crawls and downloads applicant data from LinkedIn's hiring page.",
+  "permissions": ["activeTab", "scripting", "downloads"],
+  "content_scripts": [
+    {
+      "matches": ["*://www.linkedin.com/hiring/jobs/*/applicants/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

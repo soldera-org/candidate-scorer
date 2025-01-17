@@ -1,0 +1,5 @@
+.env
+venv/
+candidates/
+project_context/
+*.pdf
