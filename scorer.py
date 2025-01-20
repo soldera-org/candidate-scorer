@@ -79,12 +79,12 @@ class CandidateScorer:
             "technical_skills": 0.0,
             "experience_relevance": 0.0,
             "cultural_fit": 0.0,
-            "potential": 0.0,
+            "domain_knowledge": 0.0,
             "overall_score": 0.0,
+            "domain_knowledge_notes": "Error processing response",
             "technical_notes": "Error processing response",
             "experience_notes": "Error processing response",
             "cultural_notes": "Error processing response",
-            "potential_notes": "Error processing response",
             "overall_explanation": "Error processing response",
         }
 
@@ -94,12 +94,12 @@ class CandidateScorer:
   "technical_skills": 7.5,
   "experience_relevance": 8.0,
   "cultural_fit": 7.5,
-  "potential": 8.0,
+  "Domain knowledge": 8.0,
   "overall_score": 7.8,
+  "domain_knowledge_notes": "Demonstrates strong...",
   "technical_notes": "Strong background in...",
   "experience_notes": "Relevant experience in...",
   "cultural_notes": "Shows alignment with...",
-  "potential_notes": "Demonstrates strong...",
   "overall_explanation": "Overall assessment shows..."
 }}
 
@@ -113,10 +113,12 @@ Screening Answers: {screening_answers}
 Resume: {resume_text}
 
 Evaluate based on:
-1. Technical skills: qualifications and technical experience (score 1-10)
-2. Experience relevance: how well past roles align with position (score 1-10)
-3. Cultural fit: values alignment and team fit (score 1-10)
-4. Future potential: growth and leadership capability (score 1-10)
+1. Domain knowledge: How well do they know the industry (score 1-10)
+2. Technical skills: qualifications and technical experience (score 1-10)
+3. Experience relevance: how well past roles align with position (score 1-10)
+4. Cultural fit: values alignment and team fit (score 1-10)
+
+When conducting the evaluation, consider each company and position they have worked in carefully. If you don't have information about a company, look it up on the web.
 
 Provide detailed notes for each area and an overall explanation.
 YOUR RESPONSE MUST BE ONLY THE JSON OBJECT."""
@@ -186,15 +188,15 @@ YOUR RESPONSE MUST BE ONLY THE JSON OBJECT."""
             logger.info(f"Starting to process {total_candidates} candidates")
 
             # Initialize new columns
+            df["Domain_Knowledge_Score"] = 0.0
             df["Technical_Skills_Score"] = 0.0
             df["Experience_Score"] = 0.0
             df["Cultural_Fit_Score"] = 0.0
-            df["Potential_Score"] = 0.0
             df["Overall_Score"] = 0.0
+            df["Domain_Knowledge_Notes"] = ""
             df["Technical_Notes"] = ""
             df["Experience_Notes"] = ""
             df["Cultural_Notes"] = ""
-            df["Potential_Notes"] = ""
             df["Overall_Explanation"] = ""
             df["Processing_Status"] = "Not Processed"  # Add status column
 
@@ -235,6 +237,9 @@ YOUR RESPONSE MUST BE ONLY THE JSON OBJECT."""
                     )
 
                     # Update DataFrame with scores
+                    df.at[index, "Domain_Knowledge_Score"] = float(
+                        result.get("domain_knowledge", 0.0)
+                    )
                     df.at[index, "Technical_Skills_Score"] = float(
                         result.get("technical_skills", 0.0)
                     )
@@ -244,11 +249,11 @@ YOUR RESPONSE MUST BE ONLY THE JSON OBJECT."""
                     df.at[index, "Cultural_Fit_Score"] = float(
                         result.get("cultural_fit", 0.0)
                     )
-                    df.at[index, "Potential_Score"] = float(
-                        result.get("potential", 0.0)
-                    )
                     df.at[index, "Overall_Score"] = float(
                         result.get("overall_score", 0.0)
+                    )
+                    df.at[index, "Domain_Knowledge_Notes"] = str(
+                        result.get("domain_knowledge_notes", "")
                     )
                     df.at[index, "Technical_Notes"] = str(
                         result.get("technical_notes", "")
@@ -258,9 +263,6 @@ YOUR RESPONSE MUST BE ONLY THE JSON OBJECT."""
                     )
                     df.at[index, "Cultural_Notes"] = str(
                         result.get("cultural_notes", "")
-                    )
-                    df.at[index, "Potential_Notes"] = str(
-                        result.get("potential_notes", "")
                     )
                     df.at[index, "Overall_Explanation"] = str(
                         result.get("overall_explanation", "")
