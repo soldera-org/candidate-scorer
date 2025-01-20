@@ -113,12 +113,12 @@ Screening Answers: {screening_answers}
 Resume: {resume_text}
 
 Evaluate based on:
-1. Domain knowledge: How well do they know the industry (score 1-10)
+1. Domain knowledge: How well do they know the industry (score 1-10).
 2. Technical skills: qualifications and technical experience (score 1-10)
 3. Experience relevance: how well past roles align with position (score 1-10)
 4. Cultural fit: values alignment and team fit (score 1-10)
 
-When conducting the evaluation, consider each company and position they have worked in carefully. If you don't have information about a company, look it up on the web.
+When conducting the evaluation, consider each company and position they have worked in carefully. If you don't have information about a company, look it up on the web. Make sure to consider the companies they have worked in - are these actually energy companies in Nordics? Put little emphasis on the questions they answered, as people are not very honest in answering these questions.
 
 Provide detailed notes for each area and an overall explanation.
 YOUR RESPONSE MUST BE ONLY THE JSON OBJECT."""
