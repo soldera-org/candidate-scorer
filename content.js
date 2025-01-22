@@ -33,7 +33,7 @@ async function crawlAllPages() {
       }
 
       // Now scrape all candidates on the current page
-      await scrapeCandidatesOnPage();
+      await scrapeCandidatesOnPage(pageNum);
     }
 
     // After all pages are processed, download the CSV if we have results
@@ -50,7 +50,7 @@ async function crawlAllPages() {
   }
 }
 
-async function scrapeCandidatesOnPage() {
+async function scrapeCandidatesOnPage(pageNum) {
   // Grab all candidate <a> tags in the left panel
   const candidateLinks = document.querySelectorAll(
     'li.hiring-applicants__list-item[data-view-name="job-applicant-list-profile-card"] a.ember-view'
@@ -83,7 +83,7 @@ async function scrapeCandidatesOnPage() {
     if (resumeLink) {
       const pdfUrl = resumeLink.getAttribute("href");
       if (pdfUrl) {
-        resumeFilename = `candidate_resume_${Date.now()}.pdf`;
+        resumeFilename = `candidate_resume_${i}_${pageNum}.pdf`;
         sendDownloadRequest(pdfUrl, resumeFilename);
       }
     }

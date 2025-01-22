@@ -221,7 +221,7 @@ YOUR RESPONSE MUST BE ONLY THE JSON OBJECT."""
                                 resume_text = self.read_pdf(resume_path)
                             else:
                                 logger.warning(
-                                    f"Resume file not found for {candidate_name}"
+                                    f"Resume file not found for {candidate_name}, '{resume_path}'"
                                 )
                     except Exception as e:
                         logger.error(
